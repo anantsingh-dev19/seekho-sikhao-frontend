@@ -51,14 +51,12 @@ export default function ShopPage() {
       <p style={s.sub}>Browse and buy our physical products</p>
 
       <div style={s.filters}>
-        {categories.map(cat => (
-          <button key={cat} style={{ ...s.filterBtn, background: filter === cat ? '#7c6dfa' : 'transparent', color: filter === cat ? 'white' : '#8888aa', borderColor: filter === cat ? '#7c6dfa' : '#2a2a3a' }} onClick={() => { if (p.stock > 0) {addItem({ id: p.id, name: p.name, price: p.price, type: 'product' });
-    toast.success(`${p.name} added to cart!`);
-  }
-}}>
-          </button>
-        ))}
-      </div>
+  {categories.map(cat => (
+    <button key={cat} style={{ ...s.filterBtn, background: filter === cat ? '#7c6dfa' : 'transparent', color: filter === cat ? 'white' : '#8888aa', borderColor: filter === cat ? '#7c6dfa' : '#2a2a3a' }} onClick={() => setFilter(cat)}>
+      {cat}
+    </button>
+  ))}
+</div>
 
       {filtered.length === 0 ? (
         <div style={s.empty}>
@@ -78,9 +76,14 @@ export default function ShopPage() {
                   <span style={s.stock}>{p.stock > 0 ? `${p.stock} in stock` : 'Out of stock'}</span>
                 </div>
                 <button style={{ ...s.btn, opacity: p.stock > 0 ? 1 : 0.5 }} disabled={p.stock === 0}
-                  onClick={() => p.stock > 0 && toast.success(`${p.name} added to cart!`)}>
-                  {p.stock > 0 ? 'Add to Cart 🛒' : 'Out of Stock'}
-                </button>
+  onClick={() => {
+    if (p.stock > 0) {
+      addItem({ id: p.id, name: p.name, price: p.price, type: 'product' });
+      toast.success(`${p.name} added to cart!`);
+    }
+  }}>
+  {p.stock > 0 ? 'Add to Cart 🛒' : 'Out of Stock'}
+</button>
               </div>
             </div>
           ))}

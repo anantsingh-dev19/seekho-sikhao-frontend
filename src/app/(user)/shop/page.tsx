@@ -76,14 +76,10 @@ export default function ShopPage() {
                   <span style={s.stock}>{p.stock > 0 ? `${p.stock} in stock` : 'Out of stock'}</span>
                 </div>
                 <button style={{ ...s.btn, opacity: p.stock > 0 ? 1 : 0.5 }} disabled={p.stock === 0}
-  onClick={() => {
-    if (p.stock > 0) {
-      addItem({ id: p.id, name: p.name, price: p.price, type: 'product' });
-      toast.success(`${p.name} added to cart!`);
-    }
-  }}>
-  {p.stock > 0 ? 'Add to Cart 🛒' : 'Out of Stock'}
-</button>
+                onClick={() => {if (p.stock > 0) {addItem({ id: p.id, name: p.name, price: p.price, type: 'product' });toast.success(`${p.name} added to cart!`);
+                }}}>
+                  {p.stock > 0 ? 'Add to Cart 🛒' : 'Out of Stock'}
+                  </button>
               </div>
             </div>
           ))}
